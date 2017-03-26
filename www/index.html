@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+  <script src="lib/firebase/firebase.js"></script>
+  <script src="lib/firebase/angularfire.min.js"></script>
+  <script src="lib/jquery-1.9.js"></script>
+  <script type="text/javascript" src="lib/admob_simple.js"></script>
+  <script src="lib/app.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/onsen-css-components.min.css">
+</head>
+<body ng-app="Application">
+
+  <ons-splitter ng-controller="AppController" var="splitter">
+    <ons-splitter-side side="left" width="250px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item ng-click="load('home.html')" tappable>
+            HTML Interview Questions
+          </ons-list-item>
+          <ons-list-item ng-click="load('settings.html')" tappable>
+            Html Basic Information
+          </ons-list-item>
+          <!-- <ons-list-item ng-click="load('question.html')" tappable>
+            About
+          </ons-list-item> -->
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content page="home.html"></ons-splitter-content>
+  </ons-splitter>
+
+  <ons-template id="home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="toggle()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Basic HTML Interview Questions
+        </div>
+      </ons-toolbar>
+      <!--loader-->
+      <ons-progress-circular indeterminate ng-if="showLoader" style="margin:40% 0 0 45%"></ons-progress-circular>
+      <!--Html Questions List-->
+      <ons-list>
+        <ons-list-item ng-repeat="question in questionList" tappable ng-click="getQuestion(question);">
+            {{$index + 1}} . {{question.questionText}}
+        </ons-list-item>
+      </ons-list>
+      <ons-fab position="bottom right">
+      <ons-icon icon="md-money-box"></ons-icon>
+    </ons-fab>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="settings.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="toggle()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          HTML Basic Information
+        </div>
+      </ons-toolbar>
+          <ons-list>
+            <ons-list-item class="heading">What is HTML ?</ons-list-item>
+            <ons-list-item>HTML is the standard markup language for creating Web pages.</ons-list-item>
+            <ons-list-item>HTML stands for Hyper Text Markup Language.</ons-list-item>
+            <ons-list-item>HTML describes the structure of Web pages using markup.</ons-list-item>
+            <ons-list-item>HTML elements are the building blocks of HTML pages.</ons-list-item>
+            <ons-list-item>HTML elements are represented by tags.</ons-list-item>
+            <ons-list-item>HTML tags label pieces of content such as "heading", "paragraph", "table", and so on.</ons-list-item>
+            <ons-list-item>Browsers do not display the HTML tags, but use them to render the content of the page.</ons-list-item>
+          </ons-list>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="question.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="toggle()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Question {{questionObj.questionNumber + 1}}
+        </div>
+      </ons-toolbar>
+      <ons-list>
+        <ons-list-item class="heading">{{questionObj.questionText}}</ons-list-item>
+        <ons-list-item ng-repeat="option in questionObj.optionsList">{{$index + 1}} . {{option}}</ons-list-item>
+      </ons-list>
+      <ons-button modifier="large--quiet" ng-hide="questionObj.showAns" ng-click="questionObj.showAns = true" style="margin-top:10%">Show Answer</ons-button>
+      <div ng-show="questionObj.showAns">
+        <p style="text-align: center; opacity: 0.6; padding-top: 20px;">Correct Answer is {{questionObj.answerIndex + 1}}</p>
+        <p style="text-align: center; opacity: 0.6; padding-top: 20px;">{{questionObj.answerText}}</p>
+      </div>
+      <ons-row style="position:absolute; bottom :5%">
+        <ons-col ng-if="questionObj.questionNumber > 0">
+          <ons-button modifier="large--quiet" ng-click="prev(questionObj.questionNumber - 1)">Previous</ons-button>
+        </ons-col>
+        <ons-col ng-if="questionObj.questionNumber < 44">
+          <ons-button modifier="large--quiet" ng-click="next(questionObj.questionNumber + 1)">Next</ons-button>
+        </ons-col>
+      </ons-row>
+    </ons-page>
+  </ons-template>
+</body>
+</html>

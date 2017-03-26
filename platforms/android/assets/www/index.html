@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+  <script src="lib/firebase/firebase.js"></script>
+  <script src="lib/firebase/angularfire.min.js"></script>
+  <script src="lib/jquery-1.9.js"></script>
+  <script type="text/javascript" src="lib/admob_simple.js"></script>
+  <script src="lib/app.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/onsen-css-components.min.css">
+</head>
+<body ng-app="Application">
+
+  <ons-splitter ng-controller="AppController" var="splitter">
+    <ons-splitter-side side="left" width="250px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item ng-click="load('home.html')" tappable>
+            HTML Interview Questions
+          </ons-list-item>
+          <ons-list-item ng-click="load('settings.html')" tappable>
+            Html Basic Information
+          </ons-list-item>
+          <ons-list-item ng-click="load('about.html')" tappable>
+            About
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content page="home.html"></ons-splitter-content>
+  </ons-splitter>
+
+  <ons-template id="home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="toggle()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          HTML Interview Questions
+        </div>
+      </ons-toolbar>
+      <!--loader-->
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;" ng-show="showLoader">
+        Loading.....
+      </p>
+      <!--Html Questions List-->
+      <ons-list>
+        <ons-list-item ng-repeat="question in questionList" tappable ons-lazy-repeat ng-click="getQuestion">
+            {{$index + 1}} . {{question.questionText}}
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="settings.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="toggle()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          HTML Basic Information
+        </div>
+      </ons-toolbar>
+          <h2 class="heading">What is HTML ?</h2>
+          <ul>
+            <li>HTML is the standard markup language for creating Web pages.</li>
+            <li>HTML stands for Hyper Text Markup Language.</li>
+            <li>HTML describes the structure of Web pages using markup.</li>
+            <li>HTML elements are the building blocks of HTML pages.</li>
+            <li>HTML elements are represented by tags.</li>
+            <li>HTML tags label pieces of content such as "heading", "paragraph", "table", and so on.</li>
+            <li>Browsers do not display the HTML tags, but use them to render the content of the page.</li>
+          </ul>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="about.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button ng-click="toggle()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          About
+        </div>
+      </ons-toolbar>
+    </ons-page>
+  </ons-template>
+</body>
+</html>
